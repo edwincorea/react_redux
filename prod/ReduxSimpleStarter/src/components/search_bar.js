@@ -8,8 +8,19 @@ import React, {Component} from "react";
 // We need the component to be aware of its state, to communicate to ther components. 
 // Promote to class-based component.
 class SearchBar extends Component {
+    //initialize state for SearchBar component
+    constructor(props) {
+        super(props);
+
+        this.state = {term: ""};
+    }
+
     render(){
-        return <input onChange={event => console.log(event.target.value)} />;
+        return (
+            <div>
+                <input onChange={event => this.setState({term: event.target.value})} />
+            </div>
+        );            
     }                
 }
 
