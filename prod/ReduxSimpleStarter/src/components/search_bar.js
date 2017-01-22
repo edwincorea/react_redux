@@ -9,7 +9,7 @@ import React, {Component} from "react";
 // Promote to class-based component.
 class SearchBar extends Component {
     render(){
-        return <input />;
+        return <input onChange={event => console.log(event.target.value)} />;
     }                
 }
 
