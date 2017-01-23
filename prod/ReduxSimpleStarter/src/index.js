@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, {Component} from "react";
 import ReactDom from "react-dom";
 import YTSearch from "youtube-api-search";
@@ -18,18 +19,25 @@ class App extends Component {
             selectedVideo: null
         };
 
-        YTSearch({key: API_KEY, term: "surfboards"}, (videos) => {
+        this.videoSearch("surfboards");
+    }
+
+    videoSearch(term) {
+        YTSearch({key: API_KEY, term}, (videos) => {
             this.setState({
                 videos: videos,
                 selectedVideo: videos[0]
             });
-        });        
+        });                
     }
 
     render(){
+        //throttle search term input using a debounced videoSearch function
+        const videoSearch = _.debounce((term) => {this.videoSearch(term)}, 300);
+
         return (
             <div>
-                <SearchBar />
+                <SearchBar onSearchTermChange={videoSearch} />
                 <VideoDetail video={this.state.selectedVideo}/>
                 <VideoList 
                     onVideoSelect={selectedVideo => this.setState({selectedVideo})}
