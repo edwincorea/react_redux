@@ -1,8 +1,9 @@
-import React, {component} from "react";
+import React, {Component} from "react";
+import { connect } from "react-redux";
 
 //We promote BookList from dumb component to smart component (container). 
 //A container is a component which has direct access to the state produced by Redux.
-export default class BookList extends Component {
+class BookList extends Component {
     renderList(){
         return this.props.books.map((book) => {
             return (
@@ -19,3 +20,12 @@ export default class BookList extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    //whatever is returned will show up as props inside BookList container
+    return {
+        books: state.books
+    };
+}
+
+export default connect(mapStateToProps)(BookList);
