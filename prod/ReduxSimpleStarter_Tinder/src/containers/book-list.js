@@ -1,5 +1,7 @@
 import React, {Component} from "react";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
+import {selectBook} from "../actions/index";
+import {bindActionCreators} from "redux";
 
 //We promote BookList from dumb component to smart component (container). 
 //A container is a component which has direct access to the state produced by Redux.
@@ -21,11 +23,19 @@ class BookList extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    //whatever is returned will show up as props inside BookList container
+//mapStateToProps: anything returned from this function will show up as props on the BookList container. props.books
+function mapStateToProps(state) {    
     return {
         books: state.books
     };
 }
 
-export default connect(mapStateToProps)(BookList);
+//mapDispatchToProps: anything returned will end up as props on the BookList container. props.selectBook
+function mapDispatchToProps(dispatch) {
+    //bindActionCreators: whenever selectBook action creator is called, the result should be passed to all of our reducers
+    return bindActionCreators({selectBook}, dispatch);
+}
+
+// Promote BookList from a component to a container. It needs to know about this new dispatch method, selectBook.
+// Make it available as a prop.
+export default connect(mapStateToProps, mapDispatchToProps)(BookList);
