@@ -33,13 +33,13 @@ const mapStateToProps = (state) => {
     return {
         books: state.books
     };
-}
+};
 
 //mapDispatchToProps: anything returned will end up as props on the BookList container. props.selectBook
 const mapDispatchToProps = (dispatch) => {
     //bindActionCreators: whenever selectBook action creator is called, the result should be passed to all of our reducers
     return bindActionCreators({selectBook}, dispatch);
-}
+};
 
 // Promote BookList from a component to a container. It needs to know about this new dispatch method, selectBook.
 // Make it available as a prop.
