@@ -29,14 +29,14 @@ class BookList extends Component {
 }
 
 //mapStateToProps: anything returned from this function will show up as props on the BookList container. props.books
-function mapStateToProps(state) {    
+const mapStateToProps = (state) => {    
     return {
         books: state.books
     };
 }
 
 //mapDispatchToProps: anything returned will end up as props on the BookList container. props.selectBook
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
     //bindActionCreators: whenever selectBook action creator is called, the result should be passed to all of our reducers
     return bindActionCreators({selectBook}, dispatch);
 }
