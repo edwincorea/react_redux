@@ -40,8 +40,8 @@ class SearchBar extends Component {
     }
 }
 
-function mapDispatchToProps(dispatch){
+const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({fetchWeather}, dispatch);
-}
+};
 
-export default connect(null, mapDispatchToProps)(SearchBar); //we don't need state here, we send null
+export default connect(null, mapDispatchToProps)(SearchBar); //we don't need state here, we send null on mapStateToProps argument
