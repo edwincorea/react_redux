@@ -4,9 +4,9 @@ class GoogleMap extends Component {
     componentDidMount() {
         new google.maps.Map(this.refs.map, {
             zoom: 12,
-            center: {
-                lat: this.props.lat,
-                lng: this.props.lon
+            center: {                
+                lng: this.props.lon,
+                lat: this.props.lat
             }
         });
 
