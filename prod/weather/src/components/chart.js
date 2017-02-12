@@ -2,6 +2,7 @@ import _ from "lodash";
 import React from "react";
 import {Sparklines, SparklinesLine, SparklinesReferenceLine} from "react-sparklines";
 
+//no need of app state (redux), so not a container.
 //class based component or just a functional component?
 //It's gonna be just some props in, we choose functional component for chart.
 
