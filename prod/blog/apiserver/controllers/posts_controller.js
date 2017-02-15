@@ -4,8 +4,7 @@ const Post = require("../models/post");
 
 module.exports = {
     apiInfo(req, res) {
-        //res.send({status: "Blog API 0.1"});
-        res.sendFile(path.join(__dirname, "../swagger-ui", "index.html"));
+        res.send({status: "Blog API 0.1.0"});
     },
 
     index(req, res, next) {
