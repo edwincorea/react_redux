@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 
 const routes = require("./routes/routes");
 const app = express();
-const subpath = express();
 
 mongoose.Promise = global.Promise;
 
@@ -17,10 +16,9 @@ app.use((err, req, res, next) => {
 });
 
 //Swagger
-app.use("/v1", subpath);
 app.use(express.static(__dirname + '/swagger-ui'));
 
-const swagger = require('swagger-node-express').createNew(subpath);
+const swagger = require('swagger-node-express').createNew(app);
 swagger.setApiInfo({
     title: "Blog API",
     description: "Blog API",
