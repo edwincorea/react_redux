@@ -1,9 +1,11 @@
+const path = require("path");
+
 const Post = require("../models/post");
 
 module.exports = {
     apiInfo(req, res) {
         //res.send({status: "Blog API 0.1"});
-        res.sendFile(__dirname + '/swagger-ui/index.html');
+        res.sendFile(path.join(__dirname, "../swagger-ui", "index.html"));
     },
 
     index(req, res, next) {
