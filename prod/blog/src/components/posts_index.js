@@ -1,10 +1,14 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
+//import {bindActionCreators} from "redux";
+
+import {fetchPosts} from "../actions/index";
 
 class PostsIndex extends Component {
     //Lifecycle methods
     //https://facebook.github.io/react/docs/react-component.html
     componentWillMount(){        
-        console.log("this will be a good time to call an action creator to fetch posts");
+        this.props.fetchPosts();
     }
 
     render(){
@@ -14,4 +18,12 @@ class PostsIndex extends Component {
     }
 }
 
-export default PostsIndex;
+// const mapDispatchToProps = (dispatch) => {
+//     return bindActionCreators({fetchPosts}, dispatch);
+// };
+
+//mapStateToProps is null here...
+
+//export default connect(null, mapDispatchToProps)(PostsIndex);
+//export default connect(null, {fetchPosts: fetchPosts})(PostsIndex);
+export default connect(null, {fetchPosts})(PostsIndex);
