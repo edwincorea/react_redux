@@ -5,6 +5,8 @@ import {Link} from "react-router";
 
 import {fetchPost, editPost} from "../actions/index";
 
+import {FIELDS} from "./posts_form_fields";
+
 class PostsEdit extends Component {
     static contextTypes = {
         router: PropTypes.object
@@ -21,6 +23,21 @@ class PostsEdit extends Component {
             });
     }
 
+    renderField(fieldConfig, fieldKey){
+        //Object provided by Redux-Form
+        const fieldHelper = this.props.fields[fieldKey];   
+
+        return (
+            <div className={`form-group ${fieldHelper.touched && fieldHelper.invalid ? "has-danger" : ""}`} key={fieldKey}>
+                <label>{fieldConfig.label}</label>
+                <fieldConfig.type type="text" className="form-control" {...fieldHelper}/>
+                <div className="text-help">
+                    {fieldHelper.touched ? fieldHelper.error : ""}
+                </div>
+            </div>            
+        );
+    }    
+
     render(){
         const {fields: {title, categories, content}, handleSubmit} = this.props;
         const {post} = this.props;
@@ -31,28 +48,7 @@ class PostsEdit extends Component {
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <h3>Edit Post</h3>
-                <div className={`form-group ${title.touched && title.invalid ? "has-danger" : ""}`}>
-                    <label>Title</label>
-                    <input type="text" value={post.title} className="form-control" {...title}/>
-                    <div className="text-help">
-                        {title.touched ? title.error : ""}
-                    </div>
-                </div>
-                <div className={`form-group ${categories.touched && categories.invalid ? "has-danger" : ""}`}>
-                    <label>Categories</label>
-                    <input type="text" value={post.categories} className="form-control" {...categories}/>
-                    <div className="text-help">
-                        {categories.touched ? categories.error : ""}
-                    </div>                    
-                </div>
-                <div className={`form-group ${content.touched && content.invalid ? "has-danger" : ""}`}>
-                    <label>Content</label>
-                    <textarea value={post.content} className="form-control" {...content}/>
-                    <div className="text-help">
-                        {content.touched ? content.error : ""}
-                    </div>                    
-                </div>        
-
+                {_.map(FIELDS, this.renderField.bind(this))}
                 <button type="submit" className="btn btn-primary">Submit</button>        
                 <Link to={`posts/${this.props.params.id}`} className="btn btn-danger">Cancel</Link>
             </form>
@@ -64,16 +60,13 @@ class PostsEdit extends Component {
 const validate = (values) => {
     const errors = {};
 
-    if (!values.title){
-        errors.title = "Enter a title";
-    }
-
-    if (!values.categories){
-        errors.categories = "Enter categories";
-    }
-    if (!values.content){
-        errors.content = "Enter some content";
-    }
+    //https://lodash.com/docs#forEach
+    //(value, key) =>
+    _.each(FIELDS, (fieldConfig, fieldKey) => {
+        if (!values[fieldKey]){
+            errors[fieldKey] = `Enter a ${fieldKey}`;
+        }        
+    });
 
     return errors;
 };
@@ -86,6 +79,6 @@ const mapStateToProps = (state) => {
 //reduxForm: first argument is form config, second is mapStateToProps, third is mapDispatchToProps
 export default reduxForm({
     form: "PostsEditForm",
-    fields: ["title", "categories", "content"],
+    fields: _.keys(FIELDS),
     validate
 }, mapStateToProps, {fetchPost, editPost}) (PostsEdit);
