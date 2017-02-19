@@ -15,6 +15,14 @@ module.exports = {
             .catch(next);
     },
 
+    show(req, res, next) {
+        const postId = req.params.id;
+
+        Post.findOne({_id: postId})
+            .then(post => res.send(post))
+            .catch(next);
+    },
+
     create(req, res, next) {
         const postProps = req.body;
 
@@ -27,7 +35,7 @@ module.exports = {
         const postId = req.params.id;
         const postProps = req.body;
 
-        Driver.findByIdAndUpdate({_id: postId}, postProps)
+        Post.findByIdAndUpdate({_id: postId}, postProps)
           .then(() => Post.findById({_id: postId}))
           .then(post => res.status(200).send(post))
           .catch(next);
@@ -36,7 +44,7 @@ module.exports = {
     delete(req, res, next) {
         const postId = req.params.id;
         
-        Driver.findByIdAndRemove({_id: postId})
+        Post.findByIdAndRemove({_id: postId})
           .then(post => res.status(204).send(post))
           .catch(next);
     }
