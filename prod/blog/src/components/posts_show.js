@@ -13,6 +13,10 @@ class PostsShow extends Component {
         this.props.fetchPost(this.props.params.id);
     }
 
+    onEditClick(){
+        this.context.router.push(`/posts/edit/${this.props.params.id}`);
+    }
+    
     onDeleteClick(){
         this.props.deletePost(this.props.params.id)
             .then(() => {
@@ -27,11 +31,14 @@ class PostsShow extends Component {
             return <div>Loading...</div>;
         }
         return (
-            <div>
+            <div className="postInfo">
                 <Link to="/">Back To Index</Link>
                 <button 
                     className="btn btn-danger pull-xs-right" 
                     onClick={this.onDeleteClick.bind(this)}>Delete Post</button>
+                <button 
+                    className="btn pull-xs-right" 
+                    onClick={this.onEditClick.bind(this)}>Edit Post</button>                                    
                 <h3>{post.title}</h3>
                 <h6>Categories: {post.categories}</h6>
                 <p>{post.content}</p>
