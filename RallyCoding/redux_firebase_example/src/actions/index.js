@@ -6,19 +6,12 @@ import {
     DELETE_POST
 } from "./types";
 
-// Initialize Firebase
-const config = {
-    apiKey: "AIzaSyCDW-Q_mPx3usxxZbv6O20R4Xy7C-c9VNY",
-    authDomain: "fblab-d3815.firebaseapp.com",
-    databaseURL: "https://fblab-d3815.firebaseio.com",
-    storageBucket: "fblab-d3815.appspot.com",
-    messagingSenderId: "290016576987"
-};
-const Posts = Firebase.initializeApp(config).database().ref('/');
+const Posts = new Firebase("https://fbredux.firebaseio.com/");
+console.log(Posts);
 
 export const fetchPosts = () => {
     return dispatch => {
-        Posts.on("value", snapshot => {                        
+        Posts.on("value", snapshot => {                                    
             dispatch({
                 type: FETCH_POSTS,
                 payload: snapshot.val()
@@ -33,9 +26,4 @@ export const createPost = (post) => {
 
 export const deletePost = (key) => {
     return dispatch => Posts.child(key).remove();
-
-    return {
-        type: DELETE_POST,
-        payload: key
-    };
 };
