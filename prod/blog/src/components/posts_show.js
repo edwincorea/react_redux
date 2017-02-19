@@ -37,7 +37,7 @@ class PostsShow extends Component {
                     className="btn btn-danger pull-xs-right" 
                     onClick={this.onDeleteClick.bind(this)}>Delete Post</button>
                 <button 
-                    className="btn pull-xs-right" 
+                    className="btn btn btn-primary pull-xs-right" 
                     onClick={this.onEditClick.bind(this)}>Edit Post</button>                                    
                 <h3>{post.title}</h3>
                 <h6>Categories: {post.categories}</h6>
