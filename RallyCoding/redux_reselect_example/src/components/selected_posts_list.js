@@ -14,7 +14,7 @@ const SelectedPostsList = (props) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = state => {  
   return {
     posts: SelectedPostsSelector(state)
   };

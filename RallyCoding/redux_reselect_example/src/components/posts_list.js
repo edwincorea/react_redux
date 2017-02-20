@@ -15,7 +15,7 @@ class PostsList extends Component {
   }
 
   renderPost(post) {
-    console.log(_.contains(this.props.selectedPostIds, post.id))
+    //console.log(_.contains(this.props.selectedPostIds, post.id))
     return (
       <li className="list-group-item" key={post.id}>
         <input
