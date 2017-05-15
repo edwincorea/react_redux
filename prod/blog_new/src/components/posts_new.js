@@ -4,9 +4,13 @@ import {Field, reduxForm} from "redux-form";
 class PostsNew extends Component {
     render() {
         return (
-            <div>
-                <h3>PostsNew!</h3>                
-            </div>
+            <form>
+                <Field
+                  name="title"
+                  component={}
+                >                    
+                </Field>
+            </form>            
         );
     }
 }
