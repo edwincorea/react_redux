@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {Field, reduxForm} from "redux-form";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {createPost} from "../actions";
 
 class PostsNew extends Component {
     constructor(props){
@@ -31,7 +33,7 @@ class PostsNew extends Component {
     }
 
     onSubmit(values){
-
+        this.props.createPost(values);
     }
 
     render() {
@@ -62,16 +64,12 @@ class PostsNew extends Component {
 
 //redux-form validate function. By convention: "values" parameter
 const validate = (values) => {
-    //console.log(values) -> {title: 'asdf', categories: 'asdf', content: 'asdf'}
     const errors = {};
 
     // Validate inputs from 'values' object
     if (!values.title) {
         errors.title = "Enter a title";
     }
-    // if (values.title.length < 3) {
-    //     errors.title = "Title must be at least 3 characters!";
-    // }    
     if (!values.categories) {
         errors.categories = "Enter some categories";
     }
@@ -87,4 +85,6 @@ const validate = (values) => {
 export default reduxForm({
     validate, 
     form: "PostsNewForm"
-})(PostsNew);
+})(
+  connect(null, {createPost})(PostsNew)
+);
