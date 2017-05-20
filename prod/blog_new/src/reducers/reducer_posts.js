@@ -15,7 +15,7 @@ export default (state = {}, action) => {
             // return newState;
 
             //ES6: key interpolation            
-            return {...state, [action.payload.data.id]: action.payload.data};
+            return { ...state, [action.payload.data._id]: action.payload.data };
 
         default:
             return state;
