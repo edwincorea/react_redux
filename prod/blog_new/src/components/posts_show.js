@@ -1,13 +1,25 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {fetchPost} from "../actions";
+import {fetchPost, deletePost} from "../actions";
 
 class PostsShow extends Component {
+    constructor(props){
+        super(props);
+        this.onDeleteClick = this.onDeleteClick.bind(this);
+    }
+
     componentDidMount(){
         //react-router wildcard tokens such as :id. Destructure id token from params.
         const {id} = this.props.match.params;
         this.props.fetchPost(id);        
+    }
+
+    onDeleteClick(){
+        const {id} = this.props.match.params;
+        this.props.deletePost(id, () => {
+            this.props.history.push("/");
+        });
     }
     
     render() {
@@ -20,6 +32,9 @@ class PostsShow extends Component {
         return (
             <div>
                 <Link to="/">Back To Index</Link>
+                <button className="btn btn-danger pull-xs-right" onClick={this.onDeleteClick}>
+                    Delete Post
+                </button>
                 <h3>{post.title}</h3>
                 <h6>Categories: {post.categories}</h6>
                 <p>{post.content}</p>
@@ -36,4 +51,4 @@ const mapStateToProps = ({posts}, ownProps) => {
     return {post: posts[ownProps.match.params.id]};
 };
 
-export default connect(mapStateToProps, {fetchPost})(PostsShow);
+export default connect(mapStateToProps, {fetchPost, deletePost})(PostsShow);
