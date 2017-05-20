@@ -2,6 +2,12 @@ import React, {Component} from "react";
 import {Field, reduxForm} from "redux-form";
 
 class PostsNew extends Component {
+    constructor(props){
+        super(props);
+
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
     //by convention: field argument
     renderField(field){
         return (
@@ -17,9 +23,14 @@ class PostsNew extends Component {
         );
     }
 
+    onSubmit(values){
+        console.log(values);
+    }
+
     render() {
+        const {handleSubmit} = this.props;
         return (
-            <form>
+            <form onSubmit={handleSubmit(this.onSubmit)}>
                 <Field
                   label="Title For Post"
                   name="title"
@@ -34,7 +45,8 @@ class PostsNew extends Component {
                   label="Post Content"
                   name="content"
                   component={this.renderField}
-                />                                
+                />
+                <button type="submit" className="btn btn-primary">Submit</button>
             </form>            
         );
     }
